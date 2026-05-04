@@ -1,0 +1,33 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1200" rx="40" fill="url(#bg)"/>
+  <g transform="translate(200 130)">
+    <path d="M84 82C84 36.7127 120.713 0 166 0H306C351.287 0 388 36.7127 388 82V558C388 658.516 306.516 740 206 740H266C165.484 740 84 658.516 84 558V82Z" fill="url(#mouse)"/>
+    <path d="M236 78V242" stroke="#4A0D16" stroke-width="5" stroke-opacity=".35"/>
+    <rect x="196" y="52" width="80" height="86" rx="22" fill="#280C12"/>
+    <rect x="130" y="188" width="78" height="20" rx="10" fill="#2B0D13"/>
+    <g fill="#2C0C13" opacity=".75">
+      <polygon points="264,220 290,210 316,220 328,246 316,272 290,282 264,272 252,246"/>
+      <polygon points="302,252 328,242 354,252 366,278 354,304 328,314 302,304 290,278"/>
+      <polygon points="340,284 366,274 392,284 404,310 392,336 366,346 340,336 328,310"/>
+      <polygon points="230,256 256,246 282,256 294,282 282,308 256,318 230,308 218,282"/>
+      <polygon points="268,288 294,278 320,288 332,314 320,340 294,350 268,340 256,314"/>
+      <polygon points="306,320 332,310 358,320 370,346 358,372 332,382 306,372 294,346"/>
+    </g>
+    <path d="M88 642C184 690 296 690 392 642" stroke="url(#glow)" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="900" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#19050A"/>
+      <stop offset=".6" stop-color="#22070E"/>
+      <stop offset="1" stop-color="#0B090C"/>
+    </linearGradient>
+    <linearGradient id="mouse" x1="236" y1="0" x2="236" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E53045"/>
+      <stop offset="1" stop-color="#860E21"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="88" y1="642" x2="392" y2="642" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39F3FF"/>
+      <stop offset="1" stop-color="#FF44C8"/>
+    </linearGradient>
+  </defs>
+</svg>

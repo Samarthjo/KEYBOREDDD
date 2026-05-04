@@ -1,0 +1,22 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" rx="36" fill="#F7F2EC"/>
+  <g transform="translate(180 130) rotate(14 260 250)">
+    <rect x="0" y="0" width="520" height="420" rx="28" fill="#FF694F" stroke="#FF8F74" stroke-width="6"/>
+    <g fill="#F1C588" stroke="#59241E" stroke-width="4">
+      <rect x="40" y="58" width="72" height="68" rx="10"/>
+      <rect x="120" y="58" width="72" height="68" rx="10"/>
+      <rect x="200" y="58" width="72" height="68" rx="10"/>
+      <rect x="280" y="58" width="72" height="68" rx="10"/>
+      <rect x="360" y="58" width="120" height="68" rx="10"/>
+      <rect x="58" y="136" width="72" height="68" rx="10"/>
+      <rect x="138" y="136" width="72" height="68" rx="10"/>
+      <rect x="218" y="136" width="72" height="68" rx="10"/>
+      <rect x="298" y="136" width="72" height="68" rx="10"/>
+      <rect x="378" y="136" width="102" height="68" rx="10"/>
+      <rect x="78" y="214" width="124" height="68" rx="10"/>
+      <rect x="210" y="214" width="72" height="68" rx="10"/>
+      <rect x="290" y="214" width="72" height="68" rx="10"/>
+      <rect x="370" y="214" width="110" height="68" rx="10"/>
+    </g>
+  </g>
+</svg>
