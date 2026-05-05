@@ -277,6 +277,134 @@
             </div>
           </div>
         </section>
+<!-- SOUND DEMO SECTION -->
+<section id="sound-demo-section" style="padding: 80px 24px; background: #080808; border-top: 1px solid #1a1a1a; text-align: center;">
+  <p style="font-size: 12px; letter-spacing: 0.12em; color: #00f0ff; text-transform: uppercase; margin-bottom: 12px;">Sound demo</p>
+  <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 600; color: #fff; margin: 0 0 8px;">Hear the difference.</h2>
+  <p style="color: #888; font-size: 15px; margin: 0 0 32px;">Pick a switch type, then click any key — or just type on your keyboard.</p>
+
+  <!-- Switch type selector -->
+  <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
+    <button class="sound-switch-btn active-switch" data-switch="clicky"
+      style="padding: 10px 24px; border-radius: 999px; border: 1px solid #333; background: transparent; color: #fff; font-size: 14px; cursor: none; transition: all 0.2s;">
+      ⚡ Clicky
+    </button>
+    <button class="sound-switch-btn" data-switch="tactile"
+      style="padding: 10px 24px; border-radius: 999px; border: 1px solid #333; background: transparent; color: #fff; font-size: 14px; cursor: none; transition: all 0.2s;">
+      〰 Tactile
+    </button>
+    <button class="sound-switch-btn" data-switch="linear"
+      style="padding: 10px 24px; border-radius: 999px; border: 1px solid #333; background: transparent; color: #fff; font-size: 14px; cursor: none; transition: all 0.2s;">
+      ▬ Linear
+    </button>
+  </div>
+
+  <!-- Keyboard layout -->
+  <div style="display: inline-block; background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 16px; padding: 20px 24px; max-width: 100%; overflow-x: auto;">
+
+    <!-- Row 1: numbers -->
+    <div style="display: flex; gap: 6px; margin-bottom: 6px; justify-content: center;">
+      <div class="sound-key" data-key="`">`</div>
+      <div class="sound-key" data-key="1">1</div>
+      <div class="sound-key" data-key="2">2</div>
+      <div class="sound-key" data-key="3">3</div>
+      <div class="sound-key" data-key="4">4</div>
+      <div class="sound-key" data-key="5">5</div>
+      <div class="sound-key" data-key="6">6</div>
+      <div class="sound-key" data-key="7">7</div>
+      <div class="sound-key" data-key="8">8</div>
+      <div class="sound-key" data-key="9">9</div>
+      <div class="sound-key" data-key="0">0</div>
+      <div class="sound-key sound-key-wide" data-key="BACKSPACE" style="min-width: 72px;">⌫</div>
+    </div>
+
+    <!-- Row 2: QWERTY -->
+    <div style="display: flex; gap: 6px; margin-bottom: 6px; justify-content: center;">
+      <div class="sound-key sound-key-wide" data-key="TAB" style="min-width: 56px;">Tab</div>
+      <div class="sound-key" data-key="Q">Q</div>
+      <div class="sound-key" data-key="W">W</div>
+      <div class="sound-key" data-key="E">E</div>
+      <div class="sound-key" data-key="R">R</div>
+      <div class="sound-key" data-key="T">T</div>
+      <div class="sound-key" data-key="Y">Y</div>
+      <div class="sound-key" data-key="U">U</div>
+      <div class="sound-key" data-key="I">I</div>
+      <div class="sound-key" data-key="O">O</div>
+      <div class="sound-key" data-key="P">P</div>
+      <div class="sound-key sound-key-wide" data-key="ENTER" style="min-width: 56px;">↵</div>
+    </div>
+
+    <!-- Row 3: ASDF -->
+    <div style="display: flex; gap: 6px; margin-bottom: 6px; justify-content: center;">
+      <div class="sound-key sound-key-wide" data-key="CAPS" style="min-width: 66px;">Caps</div>
+      <div class="sound-key" data-key="A">A</div>
+      <div class="sound-key" data-key="S">S</div>
+      <div class="sound-key" data-key="D">D</div>
+      <div class="sound-key" data-key="F">F</div>
+      <div class="sound-key" data-key="G">G</div>
+      <div class="sound-key" data-key="H">H</div>
+      <div class="sound-key" data-key="J">J</div>
+      <div class="sound-key" data-key="K">K</div>
+      <div class="sound-key" data-key="L">L</div>
+      <div class="sound-key" data-key=";">;</div>
+      <div class="sound-key" data-key="'">'</div>
+    </div>
+
+    <!-- Row 4: ZXCV -->
+    <div style="display: flex; gap: 6px; margin-bottom: 6px; justify-content: center;">
+      <div class="sound-key sound-key-wide" data-key="SHIFT" style="min-width: 86px;">Shift</div>
+      <div class="sound-key" data-key="Z">Z</div>
+      <div class="sound-key" data-key="X">X</div>
+      <div class="sound-key" data-key="C">C</div>
+      <div class="sound-key" data-key="V">V</div>
+      <div class="sound-key" data-key="B">B</div>
+      <div class="sound-key" data-key="N">N</div>
+      <div class="sound-key" data-key="M">M</div>
+      <div class="sound-key" data-key=",">,</div>
+      <div class="sound-key" data-key=".">.</div>
+      <div class="sound-key sound-key-wide" data-key="SHIFT" style="min-width: 86px;">Shift</div>
+    </div>
+
+    <!-- Row 5: spacebar -->
+    <div style="display: flex; gap: 6px; justify-content: center;">
+      <div class="sound-key sound-key-wide" data-key="ALT" style="min-width: 48px;">Alt</div>
+      <div class="sound-key sound-key-wide" data-key=" " style="min-width: 280px; flex-grow: 1;"></div>
+      <div class="sound-key sound-key-wide" data-key="ALT" style="min-width: 48px;">Alt</div>
+      <div class="sound-key sound-key-wide" data-key="CTRL" style="min-width: 48px;">Ctrl</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sound-key {
+    min-width: 40px;
+    height: 40px;
+    background: #161616;
+    border: 1px solid #2a2a2a;
+    border-bottom: 3px solid #111;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #aaa;
+    cursor: none;
+    user-select: none;
+    transition: transform 0.1s ease, background 0.1s, border-color 0.1s;
+    font-family: monospace;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+  .sound-key:hover {
+    background: #1e1e1e;
+    color: #fff;
+    border-color: #444;
+  }
+  .active-switch {
+    border-color: #00f0ff !important;
+    color: #00f0ff !important;
+  }
+</style>
         <!-- WPM CHALLENGE SECTION -->
 <section id="wpm-challenge" style="padding: 80px 24px; text-align: center; background: #0a0a0a; border-top: 1px solid #1a1a1a;">
   <p style="font-size: 12px; letter-spacing: 0.12em; color: #00f0ff; text-transform: uppercase; margin-bottom: 12px;">Typing challenge</p>
