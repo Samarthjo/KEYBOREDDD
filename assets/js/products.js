@@ -16,12 +16,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "Cyan pink hall-effect keyboard",
-    image: "assets/images/products/nova65-main.svg",
+    image: "assets/product-images/Keyboard 1.jpg",
     gallery: [
-      "assets/images/products/nova65-main.svg",
-      "assets/images/products/nova65-rgb.svg",
-      "assets/images/products/nova65-close-left.svg",
-      "assets/images/products/nova65-close-right.svg"
+      "assets/product-images/Keyboard 1.jpg",
+      "assets/product-images/Keyboard 2.jpg",
+      "assets/product-images/Keyboard 3.jpg",
+      "assets/product-images/Keyboard 4.jpg"
     ],
     power: "95",
     features: [
@@ -56,12 +56,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "Iridescent tenkeyless keyboard",
-    image: "assets/images/products/vector-main.svg",
+    image: "assets/product-images/Keyboard 3.jpg",
     gallery: [
-      "assets/images/products/vector-main.svg",
-      "assets/images/products/vector-rgb.svg",
-      "assets/images/products/vector-close-left.svg",
-      "assets/images/products/vector-close-right.svg"
+      "assets/product-images/Keyboard 3.jpg",
+      "assets/product-images/Keyboard 4.jpg",
+      "assets/product-images/Keyboard 3.jpg",
+      "assets/product-images/Keyboard 4.jpg"
     ],
     power: "90",
     features: [
@@ -96,12 +96,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "Neutral aluminum 75 percent keyboard",
-    image: "assets/images/products/mono-main.svg",
+    image: "assets/product-images/Keyboard 4.jpg",
     gallery: [
-      "assets/images/products/mono-main.svg",
-      "assets/images/products/mono-main.svg",
-      "assets/images/products/mono-main.svg",
-      "assets/images/products/mono-main.svg"
+      "assets/product-images/Keyboard 4.jpg",
+      "assets/product-images/Keyboard 3.jpg",
+      "assets/product-images/Keyboard 4.jpg",
+      "assets/product-images/Keyboard 3.jpg"
     ],
     power: "88",
     features: [
@@ -136,12 +136,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "White ultralight gaming mouse",
-    image: "assets/images/products/pulse-main.svg",
+    image: "assets/product-images/Mouse 2.png",
     gallery: [
-      "assets/images/products/pulse-main.svg",
-      "assets/images/products/pulse-main.svg",
-      "assets/images/products/pulse-main.svg",
-      "assets/images/products/pulse-main.svg"
+      "assets/product-images/Mouse 2.png",
+      "assets/product-images/Mouse 2.1.png",
+      "assets/product-images/Mouse 3.webp",
+      "assets/product-images/Mouse 2.png"
     ],
     power: "93",
     features: [
@@ -176,12 +176,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "Compact pink wireless mouse",
-    image: "assets/images/products/arc-main.svg",
+    image: "assets/product-images/Mouse 3.webp",
     gallery: [
-      "assets/images/products/arc-main.svg",
-      "assets/images/products/arc-main.svg",
-      "assets/images/products/arc-main.svg",
-      "assets/images/products/arc-main.svg"
+      "assets/product-images/Mouse 3.webp",
+      "assets/product-images/Mouse 2.png",
+      "assets/product-images/Mouse 3.webp",
+      "assets/product-images/Mouse 2.png"
     ],
     power: "84",
     features: [
@@ -216,12 +216,12 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "Blue ergonomic wireless mouse",
-    image: "assets/images/products/ion-main.svg",
+    image: "assets/product-images/Mouse 2.1.png",
     gallery: [
-      "assets/images/products/ion-main.svg",
-      "assets/images/products/ion-main.svg",
-      "assets/images/products/ion-main.svg",
-      "assets/images/products/ion-main.svg"
+      "assets/product-images/Mouse 2.1.png",
+      "assets/product-images/Mouse 2.png",
+      "assets/product-images/Mouse 2.1.png",
+      "assets/product-images/Mouse 2.png"
     ],
     power: "91",
     features: [
@@ -256,12 +256,12 @@ window.AurixCatalog = [
       accent: "#ff67ac"
     },
     imageLabel: "Braided pink coiled keyboard cable",
-    image: "assets/images/products/coilwave-main.svg",
+    image: "assets/product-images/Cable 1.webp",
     gallery: [
-      "assets/images/products/coilwave-main.svg",
-      "assets/images/products/coilwave-main.svg",
-      "assets/images/products/coilwave-main.svg",
-      "assets/images/products/coilwave-main.svg"
+      "assets/product-images/Cable 1.webp",
+      "assets/product-images/Cable 1.webp",
+      "assets/product-images/Cable 1.webp",
+      "assets/product-images/Cable 1.webp"
     ],
     power: "76",
     features: [
