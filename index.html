@@ -277,6 +277,99 @@
             </div>
           </div>
         </section>
+ <!-- SCROLL STORY SECTION -->
+<section id="scroll-story-section" style="padding: 100px 24px; background: #050505; border-top: 1px solid #1a1a1a; text-align: center; overflow: hidden;">
+
+  <p style="font-size: 12px; letter-spacing: 0.15em; color: #00f0ff; text-transform: uppercase; margin-bottom: 48px;">Our promise</p>
+
+  <!-- Line 1: BUILT FOR -->
+  <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+    <div class="story-key" data-char="B">B</div>
+    <div class="story-key" data-char="U">U</div>
+    <div class="story-key" data-char="I">I</div>
+    <div class="story-key" data-char="L">L</div>
+    <div class="story-key" data-char="T">T</div>
+    <div class="story-key story-key-space"></div>
+    <div class="story-key" data-char="F">F</div>
+    <div class="story-key" data-char="O">O</div>
+    <div class="story-key" data-char="R">R</div>
+  </div>
+
+  <!-- Line 2: SPEED -->
+  <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 56px;">
+    <div class="story-key" data-char="S">S</div>
+    <div class="story-key" data-char="P">P</div>
+    <div class="story-key" data-char="E">E</div>
+    <div class="story-key" data-char="E">E</div>
+    <div class="story-key" data-char="D">D</div>
+  </div>
+
+  <!-- Subtext that fades in after keys finish -->
+  <p class="story-subtext" style="
+    font-size: clamp(14px, 2vw, 17px);
+    color: #555;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease 1.6s, transform 0.8s ease 1.6s;
+  ">
+    Every product we make is engineered around one obsession —
+    removing every millisecond of friction between your intention and your action.
+  </p>
+
+</section>
+
+<style>
+  .story-key {
+    width: clamp(44px, 7vw, 72px);
+    height: clamp(44px, 7vw, 72px);
+    background: #111;
+    border: 1.5px solid #222;
+    border-bottom: 4px solid #0a0a0a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(18px, 3.5vw, 30px);
+    font-weight: 700;
+    color: #2a2a2a;
+    font-family: monospace;
+    transition: transform 0.12s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  .story-key-space {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: clamp(20px, 3vw, 36px);
+  }
+
+  /* Key pressing down */
+  .story-key-press {
+    transform: translateY(4px) scale(0.94);
+    background: #0d1a1a;
+    border-color: #00f0ff44;
+    color: #00f0ff88;
+  }
+
+  /* Key lit up after press */
+  .story-key-lit {
+    background: #0a1f1f;
+    border-color: #00f0ff;
+    border-bottom-color: #007a80;
+    color: #00f0ff;
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.3), 0 0 40px rgba(0, 240, 255, 0.1);
+  }
+
+  /* Subtext visible state — triggered by JS */
+  .story-subtext-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>       
 <!-- SOUND DEMO SECTION -->
 <section id="sound-demo-section" style="padding: 80px 24px; background: #080808; border-top: 1px solid #1a1a1a; text-align: center;">
   <p style="font-size: 12px; letter-spacing: 0.12em; color: #00f0ff; text-transform: uppercase; margin-bottom: 12px;">Sound demo</p>
