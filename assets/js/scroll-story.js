@@ -19,21 +19,24 @@
 
     observer.observe(section);
   }
-
+  
   function animateKeys(keys) {
     keys.forEach((key, i) => {
       setTimeout(() => {
-        // Press down
         key.classList.add('story-key-press');
-
         setTimeout(() => {
-          // Release back up + stay lit
           key.classList.remove('story-key-press');
           key.classList.add('story-key-lit');
         }, 140);
-
       }, i * 110);
     });
+
+    // Fade in subtext after all keys finish
+    const totalDelay = keys.length * 110 + 300;
+    setTimeout(() => {
+      const sub = document.querySelector('.story-subtext');
+      if (sub) sub.classList.add('story-subtext-visible');
+    }, totalDelay);
   }
 
   // Re-trigger on scroll back (optional — remove if you want once-only)
