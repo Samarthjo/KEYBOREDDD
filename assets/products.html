@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products | Aurix Input</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body data-page="products">
+    <div class="site-shell">
+      <nav class="navbar navbar-inner">
+        <a class="brand" href="index.html" aria-label="Aurix Input home">
+          <span class="brand-mark"></span>
+          <span class="brand-copy">
+            <strong>AURIX</strong>
+            <small>INPUT LAB</small>
+          </span>
+        </a>
+        <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+          <span></span><span></span>
+        </button>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="products.html" class="is-active">Products</a>
+          <a href="products.html?category=keyboard">Keyboards</a>
+          <a href="products.html?category=mouse">Mice</a>
+        </div>
+        <div class="nav-actions">
+          <a class="nav-pill" href="product.html?slug=nova65-he">Featured drop</a>
+        </div>
+      </nav>
+
+      <main>
+        <section class="page-hero page-hero--catalog reveal">
+          <p class="eyebrow">All products</p>
+          <h1>Curated keyboards, mice, and accessories</h1>
+          <p>
+            Browse premium gear with bold visuals, clean specifications, and a responsive product grid.
+          </p>
+        </section>
+
+        <section class="section reveal">
+          <div class="filters">
+            <div class="filter-group" data-filter-group="category">
+              <button class="filter-chip is-active" data-filter="all">All</button>
+              <button class="filter-chip" data-filter="keyboard">Keyboards</button>
+              <button class="filter-chip" data-filter="mouse">Mice</button>
+              <button class="filter-chip" data-filter="accessory">Accessories</button>
+            </div>
+            <div class="filter-group" data-filter-group="sort">
+              <button class="filter-chip is-active" data-sort="featured">Featured</button>
+              <button class="filter-chip" data-sort="price-low">Price: Low to high</button>
+              <button class="filter-chip" data-sort="price-high">Price: High to low</button>
+            </div>
+          </div>
+          <div class="catalog-meta">
+            <p data-results-count>0 products</p>
+          </div>
+          <div class="product-grid" data-products-grid></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="assets/js/products.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/listing.js"></script>
+  </body>
+</html>
