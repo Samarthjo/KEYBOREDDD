@@ -136,7 +136,7 @@ window.AurixCatalog = [
       accent: "#39ff14"
     },
     imageLabel: "White ultralight gaming mouse",
-    image: "assets/product-images/Mouse 2.png",
+    image: "assets/product-images/ion-pro-main.png",
     gallery: [
       "assets/product-images/Mouse 2.png",
       "assets/product-images/Mouse 2.1.png",
