@@ -68,7 +68,7 @@ function createProductCard(product) {
 }
 
 function createProductMedia(product, size, variant) {
-  const source = resolveProductImage(product, variant);
+  const source = resolveProductImage(product, variant, size);
   return `
     <img
       class="product-render product-render--${size}"
@@ -79,15 +79,17 @@ function createProductMedia(product, size, variant) {
   `;
 }
 
-function resolveProductImage(product, variant) {
+function resolveProductImage(product, variant, size) {
+  // Cards always use the clean single product image
+  if (size === 'card' && product.image) {
+    return product.image;
+  }
   if (Array.isArray(product.gallery) && product.gallery[variant]) {
     return product.gallery[variant];
   }
-
   if (product.image) {
     return product.image;
   }
-
   return buildProductImage(product, variant);
 }
 
