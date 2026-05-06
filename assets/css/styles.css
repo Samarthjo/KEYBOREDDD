@@ -1468,3 +1468,15 @@ img {
   object-fit: cover;
   object-position: center top;
 }
+/* Fix detail page main image */
+.detail-visual {
+  overflow: hidden;
+  max-height: 520px;
+}
+
+.product-render--detail {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  object-position: center;
+}
