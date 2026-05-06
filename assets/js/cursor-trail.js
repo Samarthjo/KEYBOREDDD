@@ -48,7 +48,18 @@
   window.addEventListener('mousemove', (e) => {
     dot.style.left = e.clientX + 'px';
     dot.style.top = e.clientY + 'px';
+    dot.style.opacity = '1';
   });
+
+  // Hide dot during scroll, restore on next mouse move
+  let scrollTimer;
+  window.addEventListener('scroll', () => {
+    dot.style.opacity = '0';
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      dot.style.opacity = '1';
+    }, 200);
+  }, { passive: true });
 
   // Make dot grow on hoverable elements
   document.querySelectorAll('a, button, [role="button"]').forEach(el => {
