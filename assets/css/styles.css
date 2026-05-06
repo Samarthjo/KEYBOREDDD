@@ -1480,3 +1480,7 @@ img {
   object-fit: contain;
   object-position: center;
 }
+/* Hide broken experience section */
+#experience {
+  display: none !important;
+}
