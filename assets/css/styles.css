@@ -1524,3 +1524,29 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* Fix story panel — card below image, not on top */
+.story-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.story-showcase {
+  width: 100%;
+  border-radius: 16px;
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.story-card {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  z-index: 2;
+  margin-top: 0;
+}
