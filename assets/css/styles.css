@@ -1446,3 +1446,13 @@ img {
     align-items: flex-start;
   }
 }
+/* Fix experience layout after removing media panel */
+.experience-layout {
+  display: block !important;
+}
+
+.experience-steps {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
