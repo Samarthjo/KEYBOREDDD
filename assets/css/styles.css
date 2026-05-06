@@ -1487,3 +1487,16 @@ img {
 body, main, .site-shell {
   overflow-x: hidden;
 }
+/* Fix category card image sizing */
+.category-art {
+  overflow: hidden;
+  height: 180px;
+  border-radius: 8px;
+}
+
+.category-art img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+}
