@@ -1500,3 +1500,15 @@ body, main, .site-shell {
   object-fit: cover;
   object-position: center;
 }
+html {
+  overflow-x: hidden;
+}
+
+.category-grid {
+  overflow: hidden;
+}
+
+.experience-media,
+[data-scrolly-media] {
+  display: none !important;
+}
