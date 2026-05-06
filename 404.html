@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Key Not Found | Aurix Input</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #060606;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor-dot {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+    }
+
+    /* Floor line */
+    .floor {
+      position: fixed;
+      bottom: 120px;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #222, #333, #222, transparent);
+    }
+
+    /* 404 display */
+    .error-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .error-digit {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(80px, 15vw, 140px);
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* The keycap that bounces */
+    .keycap-wrap {
+      position: relative;
+      animation: keycap-drop 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both,
+                 keycap-bounce 0.4s ease-out 1s both,
+                 keycap-roll 2.2s ease-in 1.5s forwards;
+    }
+
+    .keycap {
+      width: clamp(70px, 12vw, 120px);
+      height: clamp(70px, 12vw, 120px);
+      background: linear-gradient(145deg, #1e1e1e, #111);
+      border: 1.5px solid #2a2a2a;
+      border-bottom: 5px solid #080808;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 800;
+      color: #00f0ff;
+      text-shadow: 0 0 20px rgba(0,240,255,0.5);
+      box-shadow:
+        0 0 30px rgba(0,240,255,0.12),
+        0 8px 32px rgba(0,0,0,0.6);
+      position: relative;
+      user-select: none;
+    }
+
+    .keycap::after {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px; right: 6px;
+      height: 30%;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+    }
+
+    /* Shadow under keycap */
+    .keycap-shadow {
+      width: 70%;
+      height: 8px;
+      background: radial-gradient(ellipse, rgba(0,240,255,0.15) 0%, transparent 70%);
+      margin: 6px auto 0;
+      animation: shadow-pulse 2.2s ease-in 1.5s forwards;
+    }
+
+    @keyframes keycap-drop {
+      0%   { transform: translateY(-300px) rotate(-15deg); opacity: 0; }
+      60%  { opacity: 1; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
+    @keyframes keycap-bounce {
+      0%   { transform: translateY(0) rotate(0deg); }
+      30%  { transform: translateY(-28px) rotate(3deg); }
+      60%  { transform: translateY(0) rotate(-1deg); }
+      80%  { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes keycap-roll {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+      15%  { transform: translateY(-16px) rotate(20deg) translateX(20px); }
+      30%  { transform: translateY(0) rotate(45deg) translateX(60px); }
+      50%  { transform: translateY(-8px) rotate(80deg) translateX(120px); }
+      70%  { transform: translateY(0) rotate(120deg) translateX(200px); }
+      85%  { transform: translateY(-4px) rotate(150deg) translateX(270px); opacity: 1; }
+      100% { transform: translateY(0) rotate(180deg) translateX(340px); opacity: 0; }
+    }
+
+    @keyframes shadow-pulse {
+      0%   { opacity: 1; transform: scaleX(1); }
+      50%  { opacity: 0.4; transform: scaleX(0.5); }
+      100% { opacity: 0; transform: scaleX(0) translateX(340px); }
+    }
+
+    /* Copy */
+    .error-copy {
+      text-align: center;
+      animation: fade-up 0.6s ease 1s both;
+    }
+
+    .error-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00f0ff;
+      margin-bottom: 14px;
+    }
+
+    .error-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .error-sub {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 36px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      cursor: none;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-btn:hover {
+      border-color: #00f0ff;
+      color: #00f0ff;
+      box-shadow: 0 0 20px rgba(0,240,255,0.15);
+    }
+
+    .home-btn::before {
+      content: '↩';
+      font-size: 16px;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      animation: float-particle linear infinite;
+    }
+
+    @keyframes float-particle {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body data-page="404">
+
+  <!-- Cursor dot -->
+  <div class="cursor-dot" id="cursor"></div>
+
+  <!-- Floor -->
+  <div class="floor"></div>
+
+  <!-- Floating background particles -->
+  <div id="particles"></div>
+
+  <!-- Nav -->
+  <nav class="navbar" style="position:fixed; top:0; left:0; right:0; z-index:100;">
+    <a class="brand" href="index.html" aria-label="Aurix Input home">
+      <span class="brand-mark"></span>
+      <span class="brand-copy">
+        <strong>AURIX</strong>
+        <small>INPUT LAB</small>
+      </span>
+    </a>
+    <div class="nav-actions">
+      <a class="nav-pill" href="products.html">Back to catalog</a>
+    </div>
+  </nav>
+
+  <!-- 404 stage -->
+  <div class="error-stage">
+    <span class="error-digit">4</span>
+
+    <div class="keycap-wrap" id="keycap-wrap">
+      <div class="keycap" id="keycap">0</div>
+      <div class="keycap-shadow"></div>
+    </div>
+
+    <span class="error-digit">4</span>
+  </div>
+
+  <!-- Copy -->
+  <div class="error-copy">
+    <p class="error-label">Error 404</p>
+    <h1 class="error-title">Looks like this key got lost.</h1>
+    <p class="error-sub">It bounced off the desk and rolled under the monitor. We've looked everywhere.</p>
+    <a class="home-btn" href="index.html" id="home-btn">Return home</a>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    window.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(2.5)');
+      el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
+    });
+
+    // Click sound on home button
+    function playClick() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const t = ctx.currentTime;
+        const buf = ctx.createBuffer(1, ctx.sampleRate * 0.004, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+        }
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(1.0, t);
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(t);
+      } catch(e) {}
+    }
+
+    document.getElementById('home-btn').addEventListener('click', playClick);
+
+    // Also play click sound when keycap bounces (at 1s)
+    setTimeout(playClick, 1000);
+    setTimeout(playClick, 1150);
+
+    // Floating particles
+    const colors = ['#00f0ff', '#ff00ff', '#ffffff', '#a78bfa'];
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 2;
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        left: ${Math.random() * 100}vw;
+        animation-duration: ${6 + Math.random() * 8}s;
+        animation-delay: ${Math.random() * 6}s;
+      `;
+      container.appendChild(p);
+    }
+  </script>
+</body>
+</html>
