@@ -9,7 +9,7 @@
     .slice(0, 3);
 
   const root = document.querySelector("[data-product-detail]");
-  const galleryItems = [0, 1, 2, 3];
+  const galleryItems = [0, 1, 2];
   root.innerHTML = `
     <section class="detail-grid">
       <div class="detail-gallery reveal">
