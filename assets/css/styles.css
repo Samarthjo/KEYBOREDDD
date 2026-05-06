@@ -1456,3 +1456,15 @@ img {
   max-width: 800px;
   margin: 0 auto;
 }
+/* Fix product card image sizing */
+.product-card-visual {
+  overflow: hidden;
+  height: 260px;
+}
+
+.product-render--card {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center top;
+}
