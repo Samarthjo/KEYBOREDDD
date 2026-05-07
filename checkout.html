@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | Aurix Input Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #080808; color: #fff; font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+
+    .checkout-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 100px 24px 60px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    @media (max-width: 768px) { .checkout-wrap { grid-template-columns: 1fr; padding-top: 80px; } }
+
+    /* ── LEFT: Order Summary ── */
+    .order-summary { display: flex; flex-direction: column; gap: 24px; }
+    .order-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #00f0ff; margin-bottom: 4px; }
+    .order-title { font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 24px; }
+
+    .order-item {
+      display: flex; gap: 16px; align-items: center;
+      background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 16px;
+    }
+    .order-item-img { width: 72px; height: 72px; border-radius: 8px; object-fit: contain; background: #0a0a0a; flex-shrink: 0; }
+    .order-item-info { flex: 1; }
+    .order-item-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .order-item-sub { font-size: 12px; color: #555; }
+    .order-item-price { font-weight: 700; font-size: 16px; color: #fff; }
+
+    .promo-wrap { position: relative; }
+    .promo-input {
+      width: 100%; background: #0f0f0f; border: 1px solid #222;
+      border-radius: 10px; padding: 14px 110px 14px 16px;
+      font-size: 14px; color: #fff; font-family: 'Space Grotesk', sans-serif;
+      outline: none; transition: border-color 0.2s; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .promo-input:focus { border-color: #00f0ff; }
+    .promo-input::placeholder { text-transform: none; letter-spacing: 0; color: #333; }
+    .promo-btn {
+      position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+      background: #1a1a1a; border: 1px solid #2a2a2a; color: #888;
+      padding: 8px 16px; border-radius: 7px; font-size: 12px; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif; transition: all 0.2s;
+    }
+    .promo-btn:hover { border-color: #00f0ff; color: #00f0ff; }
+    .promo-msg { font-size: 12px; margin-top: 8px; height: 16px; transition: color 0.3s; }
+    .promo-msg.success { color: #34d399; }
+    .promo-msg.error { color: #f87171; }
+
+    .price-breakdown { display: flex; flex-direction: column; gap: 10px; }
+    .price-row { display: flex; justify-content: space-between; font-size: 14px; color: #555; }
+    .price-row.total { color: #fff; font-weight: 700; font-size: 18px; border-top: 1px solid #1e1e1e; padding-top: 12px; margin-top: 4px; }
+    .price-row .strike { text-decoration: line-through; color: #333; }
+    #discount-row { display: none; color: #34d399; }
+
+    /* ── RIGHT: Payment ── */
+    .payment-side { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Card Visualizer */
+    .card-scene { perspective: 1000px; height: 200px; margin-bottom: 8px; }
+    .card-3d {
+      width: 100%; height: 200px; position: relative;
+      transform-style: preserve-3d; transition: transform 0.6s ease;
+    }
+    .card-3d.flipped { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute; inset: 0; border-radius: 16px;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden;
+    }
+    .card-front {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,240,255,0.05);
+    }
+    .card-back {
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      transform: rotateY(180deg);
+    }
+
+    /* Chip */
+    .card-chip {
+      width: 44px; height: 34px; background: linear-gradient(135deg, #d4af37, #f0d060, #b8960c, #d4af37);
+      border-radius: 6px; position: relative; flex-shrink: 0;
+    }
+    .card-chip::before {
+      content: ''; position: absolute; inset: 6px;
+      border: 1px solid rgba(0,0,0,0.3); border-radius: 3px;
+    }
+    .card-chip::after {
+      content: ''; position: absolute; top: 50%; left: 0; right: 0;
+      height: 1px; background: rgba(0,0,0,0.25);
+    }
+    .card-top-row { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card-brand { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+    .card-network { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); letter-spacing: 0.05em; }
+
+    .card-number-display {
+      font-family: 'Sora', monospace; font-size: clamp(16px, 3vw, 22px);
+      letter-spacing: 0.2em; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .card-number-display span { opacity: 0.35; }
+
+    .card-bottom-row { display: flex; justify-content: space-between; align-items: flex-end; }
+    .card-holder-name { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.85); }
+    .card-expiry { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .card-expiry-label { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* Back face */
+    .card-stripe { height: 42px; background: #000; margin: 20px -28px; }
+    .card-cvv-row { display: flex; align-items: center; gap: 12px; padding-top: 8px; }
+    .card-cvv-bar { flex: 1; height: 36px; background: rgba(255,255,255,0.9); border-radius: 4px; display: flex; align-items: center; padding: 0 12px; }
+    .card-cvv-display { font-family: monospace; font-size: 16px; color: #111; letter-spacing: 0.2em; }
+    .card-cvv-label { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; }
+
+    /* Glow under card */
+    .card-glow {
+      height: 20px; margin-top: -8px;
+      background: radial-gradient(ellipse at center, rgba(0,240,255,0.08) 0%, transparent 70%);
+    }
+
+    /* Method tabs */
+    .method-tabs { display: flex; gap: 8px; }
+    .method-tab {
+      flex: 1; padding: 10px; border: 1px solid #222; border-radius: 8px;
+      background: transparent; color: #555; font-size: 13px; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif; transition: all 0.2s; text-align: center;
+    }
+    .method-tab.active { border-color: #00f0ff; color: #00f0ff; background: rgba(0,240,255,0.05); }
+    .method-tab:hover:not(.active) { border-color: #333; color: #888; }
+
+    /* Form */
+    .form-panel { display: none; flex-direction: column; gap: 14px; }
+    .form-panel.active { display: flex; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-label { font-size: 11px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; }
+    .form-input {
+      background: #0f0f0f; border: 1px solid #222; border-radius: 10px;
+      padding: 13px 16px; font-size: 15px; color: #fff;
+      font-family: 'Space Grotesk', sans-serif; outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus { border-color: #00f0ff; }
+    .form-input::placeholder { color: #2a2a2a; }
+
+    /* UPI Panel */
+    .upi-wrap { display: flex; flex-direction: column; gap: 12px; }
+    .upi-input-wrap { position: relative; }
+    .upi-lightning {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 16px; pointer-events: none;
+    }
+    .upi-input { padding-left: 38px !important; }
+
+    /* Wallet grid */
+    .wallet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .wallet-option {
+      border: 1px solid #1e1e1e; border-radius: 10px; padding: 16px 12px;
+      text-align: center; cursor: pointer; transition: all 0.2s; background: #0f0f0f;
+    }
+    .wallet-option:hover { border-color: #d4af37; box-shadow: 0 0 16px rgba(212,175,55,0.12); }
+    .wallet-option.selected { border-color: #d4af37; background: rgba(212,175,55,0.05); }
+    .wallet-icon { font-size: 24px; margin-bottom: 6px; }
+    .wallet-name { font-size: 11px; color: #555; }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%; padding: 16px; border-radius: 12px;
+      background: linear-gradient(135deg, #00c851, #00e676);
+      border: none; color: #000; font-weight: 700; font-size: 16px;
+      font-family: 'Sora', sans-serif; cursor: pointer; letter-spacing: 0.03em;
+      transition: transform 0.15s, box-shadow 0.2s; margin-top: 4px;
+    }
+    .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,200,81,0.3); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ── PROCESSING OVERLAY ── */
+    .processing-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      z-index: 9999; display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 32px;
+    }
+    .processing-overlay.show { display: flex; }
+    .pay-keys { display: flex; gap: 14px; }
+    .pay-key {
+      width: 72px; height: 72px; background: #111; border: 1.5px solid #222;
+      border-bottom: 5px solid #080808; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700; color: #333;
+      transition: transform 0.1s, background 0.1s, border-color 0.1s, color 0.1s;
+    }
+    .pay-key.press {
+      transform: translateY(4px);
+      background: #1a1200; border-color: #d4af37; color: #d4af37;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+    .processing-copy { font-size: 15px; color: #555; letter-spacing: 0.05em; }
+    .processing-copy strong { color: #888; }
+
+    /* ── SUCCESS OVERLAY ── */
+    .success-overlay {
+      position: fixed; inset: 0; background: #060606;
+      z-index: 10000; display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px; text-align: center;
+      padding: 24px;
+    }
+    .success-overlay.show { display: flex; }
+    .success-icon { font-size: 48px; animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .success-title { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 700; }
+    .success-order { font-size: 13px; color: #555; margin-top: -8px; }
+    .success-order strong { color: #00f0ff; font-family: monospace; letter-spacing: 0.1em; }
+    .success-msg { color: #555; font-size: 14px; max-width: 340px; line-height: 1.6; }
+    .success-btn {
+      margin-top: 16px; padding: 12px 32px; border-radius: 999px;
+      background: transparent; border: 1px solid #2a2a2a; color: #888;
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .success-btn:hover { border-color: #00f0ff; color: #00f0ff; }
+
+    @keyframes pop-in {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    /* Emoji confetti */
+    .emoji-confetti {
+      position: fixed; pointer-events: none; z-index: 10001;
+      font-size: 28px; animation: emoji-burst linear forwards;
+    }
+    @keyframes emoji-burst {
+      0%   { transform: translate(-50%,-50%) scale(0) rotate(0deg); opacity: 1; }
+      20%  { transform: translate(var(--tx), var(--ty1)) scale(1.2) rotate(var(--rot)); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty2)) scale(0.6) rotate(var(--rot2)); opacity: 0; }
+    }
+
+    /* Trust badges */
+    .trust-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .trust-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #333; }
+  </style>
+</head>
+<body data-page="checkout">
+
+  <!-- Processing overlay -->
+  <div class="processing-overlay" id="processing-overlay">
+    <div class="pay-keys">
+      <div class="pay-key" id="key-p">P</div>
+      <div class="pay-key" id="key-a">A</div>
+      <div class="pay-key" id="key-y">Y</div>
+      <div class="pay-key" id="key-enter">↵</div>
+    </div>
+    <p class="processing-copy">Please don't press <strong>any keys.</strong></p>
+  </div>
+
+  <!-- Success overlay -->
+  <div class="success-overlay" id="success-overlay">
+    <div id="confetti-stage"></div>
+    <div class="success-icon">✅</div>
+    <h1 class="success-title">Order confirmed.</h1>
+    <p class="success-order">Order ID: <strong id="order-id"></strong></p>
+    <p class="success-msg">Your gear is being prepared. You'll receive a confirmation at your email shortly.</p>
+    <button class="success-btn" onclick="window.location.href='index.html'">↩ Back to store</button>
+  </div>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-inner">
+    <a class="brand" href="index.html" aria-label="Aurix Input home">
+      <span class="brand-mark"></span>
+      <span class="brand-copy"><strong>AURIX</strong><small>INPUT LAB</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+    </div>
+    <div class="nav-actions">
+      <a class="nav-pill" href="products.html">Back to catalog</a>
+    </div>
+  </nav>
+
+  <div class="checkout-wrap">
+
+    <!-- LEFT: Order Summary -->
+    <div class="order-summary">
+      <div>
+        <p class="order-label">Checkout</p>
+        <h1 class="order-title">Complete your order</h1>
+      </div>
+
+      <!-- Product item -->
+      <div class="order-item">
+        <img class="order-item-img" id="order-img" src="assets/product-images/Keyboard 1.jpg" alt="Product" />
+        <div class="order-item-info">
+          <div class="order-item-name" id="order-name">Nova65 HE</div>
+          <div class="order-item-sub" id="order-sub">Contour cyber 65% keyboard</div>
+        </div>
+        <div class="order-item-price" id="order-item-price">$229</div>
+      </div>
+
+      <!-- Promo code -->
+      <div>
+        <div class="form-label" style="margin-bottom:8px;">Promo code</div>
+        <div class="promo-wrap">
+          <input class="promo-input" id="promo-input" placeholder="Try SWITCH10, CLICKR, or KEYFORGE" maxlength="16" />
+          <button class="promo-btn" id="promo-btn">Apply</button>
+        </div>
+        <div class="promo-msg" id="promo-msg"></div>
+      </div>
+
+      <!-- Price breakdown -->
+      <div class="price-breakdown">
+        <div class="price-row"><span>Subtotal</span><span id="subtotal-val">$229.00</span></div>
+        <div class="price-row" id="discount-row"><span>Discount</span><span id="discount-val" style="color:#34d399">-$0.00</span></div>
+        <div class="price-row"><span>Shipping</span><span style="color:#34d399">Free</span></div>
+        <div class="price-row total"><span>Total</span><span id="total-val">$229.00</span></div>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="trust-row">
+        <div class="trust-badge">🔒 Secure checkout</div>
+        <div class="trust-badge">⚡ Instant confirmation</div>
+        <div class="trust-badge">📦 Free shipping</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Payment -->
+    <div class="payment-side">
+
+      <!-- Card visualizer -->
+      <div class="card-scene">
+        <div class="card-3d" id="card-3d">
+
+          <!-- Front -->
+          <div class="card-face card-front">
+            <div class="card-top-row">
+              <div class="card-chip"></div>
+              <div>
+                <div class="card-brand">AURIX CARD</div>
+                <div class="card-network" id="card-network">VISA</div>
+              </div>
+            </div>
+            <div class="card-number-display" id="card-number-display">
+              <span>XXXX</span> <span>XXXX</span> <span>XXXX</span> <span>XXXX</span>
+            </div>
+            <div class="card-bottom-row">
+              <div>
+                <div class="card-expiry-label">Card Holder</div>
+                <div class="card-holder-name" id="card-name-display">YOUR NAME</div>
+              </div>
+              <div style="text-align:right">
+                <div class="card-expiry-label">Expires</div>
+                <div class="card-expiry" id="card-expiry-display">MM/YY</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="card-face card-back">
+            <div class="card-stripe"></div>
+            <div class="card-cvv-row">
+              <div class="card-cvv-bar">
+                <span class="card-cvv-display" id="card-cvv-display">•••</span>
+              </div>
+              <div class="card-cvv-label">CVV</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="card-glow"></div>
+
+      <!-- Payment method tabs -->
+      <div class="method-tabs">
+        <button class="method-tab active" data-method="card">💳 Card</button>
+        <button class="method-tab" data-method="upi">⚡ UPI</button>
+        <button class="method-tab" data-method="wallet">👛 Wallet</button>
+      </div>
+
+      <!-- Card form -->
+      <div class="form-panel active" id="panel-card">
+        <div class="form-group">
+          <label class="form-label">Card number</label>
+          <input class="form-input" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cardholder name</label>
+          <input class="form-input" id="card-name" placeholder="Name on card" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Expiry</label>
+            <input class="form-input" id="card-expiry" placeholder="MM / YY" maxlength="7" inputmode="numeric" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input class="form-input" id="card-cvv" placeholder="•••" maxlength="4" inputmode="numeric" type="password" />
+          </div>
+        </div>
+      </div>
+
+      <!-- UPI form -->
+      <div class="form-panel" id="panel-upi">
+        <div class="form-group">
+          <label class="form-label">UPI ID</label>
+          <div class="upi-input-wrap">
+            <span class="upi-lightning">⚡</span>
+            <input class="form-input upi-input" placeholder="yourname@upi" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Or scan QR</label>
+          <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:24px;text-align:center;color:#333;font-size:13px;">
+            QR code will appear here at a real payment gateway
+          </div>
+        </div>
+      </div>
+
+      <!-- Wallet form -->
+      <div class="form-panel" id="panel-wallet">
+        <div class="form-label" style="margin-bottom:8px;">Select wallet</div>
+        <div class="wallet-grid">
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">🅿️</div>
+            <div class="wallet-name">PayPal</div>
+          </div>
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">🍎</div>
+            <div class="wallet-name">Apple Pay</div>
+          </div>
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">🔵</div>
+            <div class="wallet-name">GPay</div>
+          </div>
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">🟣</div>
+            <div class="wallet-name">PhonePe</div>
+          </div>
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">🟡</div>
+            <div class="wallet-name">Paytm</div>
+          </div>
+          <div class="wallet-option" onclick="selectWallet(this)">
+            <div class="wallet-icon">⚡</div>
+            <div class="wallet-name">Amazon Pay</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button class="submit-btn" id="submit-btn">COMPLETE ORDER → $229.00</button>
+
+    </div>
+  </div>
+
+  <script src="assets/js/products.js"></script>
+  <script>
+  (function () {
+
+    // ── Product from URL ──
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug') || 'nova65-he';
+    const product = window.AurixCatalog
+      ? window.AurixCatalog.find(p => p.slug === slug) || window.AurixCatalog[0]
+      : null;
+
+    let basePrice = product ? product.price : 229;
+    let discountRate = 0;
+
+    if (product) {
+      document.getElementById('order-name').textContent = product.name;
+      document.getElementById('order-sub').textContent = product.tagline;
+      document.getElementById('order-item-price').textContent = '$' + product.price;
+      document.getElementById('order-img').src = product.image;
+      document.getElementById('order-img').alt = product.name;
+      basePrice = product.price;
+    }
+
+    // ── Pricing ──
+    const CODES = { 'SWITCH10': 0.10, 'CLICKR': 0.15, 'KEYFORGE': 0.20 };
+
+    function getTotal() { return basePrice * (1 - discountRate); }
+    function fmt(n) { return '$' + n.toFixed(2); }
+
+    function updatePrices() {
+      const total = getTotal();
+      document.getElementById('subtotal-val').textContent = fmt(basePrice);
+      document.getElementById('total-val').textContent = fmt(total);
+      document.getElementById('submit-btn').textContent = `COMPLETE ORDER → ${fmt(total)}`;
+
+      if (discountRate > 0) {
+        document.getElementById('discount-row').style.display = 'flex';
+        document.getElementById('discount-val').textContent = '-' + fmt(basePrice * discountRate);
+      } else {
+        document.getElementById('discount-row').style.display = 'none';
+      }
+    }
+
+    updatePrices();
+
+    // Promo code
+    document.getElementById('promo-btn').addEventListener('click', () => {
+      const code = document.getElementById('promo-input').value.trim().toUpperCase();
+      const msg = document.getElementById('promo-msg');
+      if (CODES[code]) {
+        discountRate = CODES[code];
+        msg.textContent = `✓ ${Math.round(discountRate * 100)}% discount applied!`;
+        msg.className = 'promo-msg success';
+        updatePrices();
+        // Brief flash on total
+        const tv = document.getElementById('total-val');
+        tv.style.color = '#34d399';
+        setTimeout(() => { tv.style.color = ''; }, 800);
+      } else {
+        msg.textContent = '✗ Invalid code. Try SWITCH10, CLICKR, or KEYFORGE.';
+        msg.className = 'promo-msg error';
+      }
+    });
+
+    document.getElementById('promo-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('promo-btn').click();
+    });
+
+    // ── Card visualizer ──
+    const cardNumber = document.getElementById('card-number');
+    const cardName   = document.getElementById('card-name');
+    const cardExpiry = document.getElementById('card-expiry');
+    const cardCvv    = document.getElementById('card-cvv');
+    const card3d     = document.getElementById('card-3d');
+
+    function formatDisplay(raw) {
+      const v = raw.replace(/\D/g, '').substring(0, 16);
+      const groups = [];
+      for (let i = 0; i < 4; i++) {
+        const chunk = v.substring(i * 4, i * 4 + 4);
+        groups.push(chunk || '');
+      }
+      return groups;
+    }
+
+    function getNetwork(raw) {
+      const n = raw.replace(/\D/g, '');
+      if (n.startsWith('4')) return 'VISA';
+      if (n.startsWith('5')) return 'MASTERCARD';
+      if (n.startsWith('3')) return 'AMEX';
+      if (n.startsWith('6')) return 'RUPAY';
+      return 'CARD';
+    }
+
+    cardNumber.addEventListener('input', function () {
+      // Format input
+      const raw = this.value.replace(/\D/g, '').substring(0, 16);
+      const formatted = raw.match(/.{1,4}/g)?.join(' ') || raw;
+      this.value = formatted;
+
+      // Update display
+      const groups = formatDisplay(raw);
+      document.getElementById('card-number-display').innerHTML = groups.map(g => {
+        const padded = g + 'X'.repeat(4 - g.length);
+        const colored = g + `<span>${'X'.repeat(4 - g.length)}</span>`;
+        return colored;
+      }).join(' ');
+
+      document.getElementById('card-network').textContent = getNetwork(raw);
+    });
+
+    cardName.addEventListener('input', function () {
+      document.getElementById('card-name-display').textContent =
+        this.value.toUpperCase() || 'YOUR NAME';
+    });
+
+    cardExpiry.addEventListener('input', function () {
+      let raw = this.value.replace(/\D/g, '').substring(0, 4);
+      if (raw.length >= 3) raw = raw.substring(0, 2) + ' / ' + raw.substring(2);
+      this.value = raw;
+      document.getElementById('card-expiry-display').textContent =
+        raw || 'MM/YY';
+    });
+
+    cardCvv.addEventListener('focus', () => card3d.classList.add('flipped'));
+    cardCvv.addEventListener('blur',  () => card3d.classList.remove('flipped'));
+    cardCvv.addEventListener('input', function () {
+      document.getElementById('card-cvv-display').textContent =
+        '•'.repeat(this.value.length) || '•••';
+    });
+
+    // ── Method tabs ──
+    document.querySelectorAll('.method-tab').forEach(tab => {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('panel-' + this.dataset.method).classList.add('active');
+      });
+    });
+
+    // ── Wallet selection ──
+    window.selectWallet = function(el) {
+      document.querySelectorAll('.wallet-option').forEach(w => w.classList.remove('selected'));
+      el.classList.add('selected');
+    };
+
+    // ── Processing ceremony ──
+    function runProcessing() {
+      const overlay = document.getElementById('processing-overlay');
+      overlay.classList.add('show');
+      const keys = ['key-p', 'key-a', 'key-y', 'key-enter'];
+
+      keys.forEach((id, i) => {
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          el.classList.add('press');
+          setTimeout(() => el.classList.remove('press'), 180);
+        }, i * 380);
+
+        // Second pass
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          el.classList.add('press');
+          setTimeout(() => el.classList.remove('press'), 180);
+        }, 1600 + i * 300);
+      });
+
+      setTimeout(() => {
+        overlay.classList.remove('show');
+        showSuccess();
+      }, 3200);
+    }
+
+    // ── Success + Confetti ──
+    function generateOrderId() {
+      return 'KF-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    }
+
+    function launchConfetti() {
+      const emojis = ['⌨️', '🖱️', '⚡', '⌨️', '🖱️', '⚡', '✨', '🎉'];
+      const stage = document.getElementById('confetti-stage');
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+
+      for (let i = 0; i < 24; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'emoji-confetti';
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          const angle = (Math.random() * 360) * (Math.PI / 180);
+          const dist = 80 + Math.random() * 180;
+          const tx = Math.cos(angle) * dist + 'px';
+          const ty1 = (Math.sin(angle) * dist - 60) + 'px';
+          const ty2 = (Math.sin(angle) * dist + 200) + 'px';
+          const rot = (Math.random() * 360 - 180) + 'deg';
+          const rot2 = (Math.random() * 720 - 360) + 'deg';
+          el.style.cssText += `
+            left: ${cx}px; top: ${cy}px;
+            --tx: ${tx}; --ty1: ${ty1}; --ty2: ${ty2};
+            --rot: ${rot}; --rot2: ${rot2};
+            animation-duration: ${1.2 + Math.random() * 0.8}s;
+          `;
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 2500);
+        }, i * 60);
+      }
+    }
+
+    function showSuccess() {
+      document.getElementById('order-id').textContent = generateOrderId();
+      document.getElementById('success-overlay').classList.add('show');
+      setTimeout(launchConfetti, 200);
+      setTimeout(launchConfetti, 800);
+    }
+
+    // ── Submit ──
+    document.getElementById('submit-btn').addEventListener('click', runProcessing);
+
+  })();
+  </script>
+</body>
+</html>
