@@ -34,13 +34,13 @@
   dot.style.cssText = `
     position: fixed;
     width: 10px; height: 10px;
-    background: #fff;
+    background: #00f0ff;
     border-radius: 50%;
     pointer-events: none;
     z-index: 100000;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease;
-    mix-blend-mode: difference;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
   `;
   document.body.appendChild(dot);
   document.body.style.cursor = 'none';
