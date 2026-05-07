@@ -378,17 +378,17 @@
   });
 
   // ── Init + watch for dynamic cards ──
-  function init() {
+function init() {
     injectButtons();
-    const observer = new MutationObserver(injectButtons);
+    let injecting = false;
+    const observer = new MutationObserver(() => {
+      if (injecting) return;
+      injecting = true;
+      injectButtons();
+      injecting = false;
+    });
     const grid = document.querySelector('[data-products-grid], [data-featured-grid], .product-grid');
-    if (grid) observer.observe(grid, { childList: true, subtree: true });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+    if (grid) observer.observe(grid, { childList: true });
   }
 
   // Re-inject after main.js renders featured grid
