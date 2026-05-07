@@ -31,9 +31,11 @@
 
   // Custom dot cursor
   const dot = document.createElement('div');
+  dot.id = 'aurix-cursor-dot';
   dot.style.cssText = `
     position: fixed;
-    width: 10px; height: 10px;
+    width: 10px;
+    height: 10px;
     background: #00f0ff;
     border-radius: 50%;
     pointer-events: none;
@@ -41,35 +43,31 @@
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease;
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    will-change: left, top;
   `;
   document.body.appendChild(dot);
-  document.body.style.cursor = 'none';
 
+  // Move dot with mouse - no scroll hiding
   window.addEventListener('mousemove', (e) => {
     dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-    dot.style.opacity = '1';
+    dot.style.top  = e.clientY + 'px';
   });
 
-  // Hide dot during scroll, restore on next mouse move
-  let scrollTimer;
-  window.addEventListener('scroll', () => {
-    dot.style.opacity = '0';
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      dot.style.opacity = '1';
-    }, 200);
-  }, { passive: true });
+  // Grow on hoverable elements
+  function attachHoverEffects() {
+    document.querySelectorAll('a, button, [role="button"], .sound-key, .story-key').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+  }
 
-  // Make dot grow on hoverable elements
-  document.querySelectorAll('a, button, [role="button"]').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      dot.style.transform = 'translate(-50%, -50%) scale(2.5)';
-    });
-    el.addEventListener('mouseleave', () => {
-      dot.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-  });
+  // Run immediately + after DOM fully loads
+  attachHoverEffects();
+  window.addEventListener('load', attachHoverEffects);
 
   function hsl(index, total) {
     const hue = (index / total) * 360;
@@ -94,7 +92,6 @@
 
     ctx.globalAlpha = 1;
 
-    // Age out and shrink trail when mouse is idle
     if (trail.length > 0) {
       trail[0].age++;
       if (trail[0].age > 8) trail.shift();
