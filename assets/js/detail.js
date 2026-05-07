@@ -41,7 +41,7 @@
           <span>$${product.originalPrice}</span>
         </div>
         <div class="detail-actions">
-          <a class="button button-primary" href="products.html">Buy loadout</a>
+          <a class="button button-primary" href="checkout.html?slug=${product.slug}">Buy loadout</a>
           <a class="button button-secondary" href="products.html">Back to catalog</a>
         </div>
         <ul>
