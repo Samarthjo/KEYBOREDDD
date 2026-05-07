@@ -1524,3 +1524,14 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+dot.style.cssText = `
+    position: fixed;
+    width: 10px; height: 10px;
+    background: #00f0ff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+  `;
