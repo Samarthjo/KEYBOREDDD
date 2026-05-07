@@ -60,7 +60,7 @@ function createProductCard(product) {
           <span class="text-link">Inspect item</span>
         </div>
         <div class="product-card-action">
-          <span class="button button-primary">Deploy to cart</span>
+          <a class="button button-primary" href="checkout.html?slug=${product.slug}">Deploy to cart</a>
         </div>
       </a>
     </article>
