@@ -1527,3 +1527,6 @@ body {
 * {
   cursor: auto;
 }
+html, body, * {
+  cursor: auto !important;
+}
