@@ -20,72 +20,24 @@
 
   const trail = [];
   const MAX = 28;
-  let mouse = { x: -200, y: -200 };
 
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
     trail.push({ x: e.clientX, y: e.clientY, age: 0 });
     if (trail.length > MAX) trail.shift();
   });
-
-  // Custom dot cursor
-  const dot = document.createElement('div');
-  dot.id = 'aurix-cursor-dot';
-  dot.style.cssText = `
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: #00f0ff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 100000;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease;
-    box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
-    will-change: left, top;
-  `;
-  document.body.appendChild(dot);
-
-  // Move dot with mouse - no scroll hiding
-  window.addEventListener('mousemove', (e) => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top  = e.clientY + 'px';
-  });
-
-  // Grow on hoverable elements
-  function attachHoverEffects() {
-    document.querySelectorAll('a, button, [role="button"], .sound-key, .story-key').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        dot.style.transform = 'translate(-50%, -50%) scale(2.5)';
-      });
-      el.addEventListener('mouseleave', () => {
-        dot.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
-    });
-  }
-
-  // Run immediately + after DOM fully loads
-  attachHoverEffects();
-  window.addEventListener('load', attachHoverEffects);
-
-  function hsl(index, total) {
-    const hue = (index / total) * 360;
-    return `hsl(${hue}, 100%, 60%)`;
-  }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < trail.length; i++) {
-      const point = trail[i];
       const progress = i / trail.length;
       const radius = progress * 7;
       const alpha = progress * 0.8;
+      const hue = (i / trail.length) * 360;
 
       ctx.beginPath();
-      ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = hsl(i, trail.length);
+      ctx.arc(trail[i].x, trail[i].y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
       ctx.globalAlpha = alpha;
       ctx.fill();
     }
